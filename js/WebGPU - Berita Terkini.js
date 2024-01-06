@@ -105,7 +105,7 @@ async function main() {
 		})
 		arr_pipebind[frag] = {pipeline,bindgroup,}
 	}
-	let namachannel = 'roket'
+	let namachannel = 'nosignal'
 	
 	
 	
