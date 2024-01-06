@@ -1,0 +1,192 @@
+struct posisi{
+	@builtin(position) posisilain:vec4f,
+	@location(0) frag:vec2f,
+}
+
+@vertex fn vs(
+	@builtin(vertex_index) vertexIndex : u32
+) -> posisi {
+	let pos = array(
+		vec2f( 0.0,  0.5)*33.,	// top center
+		vec2f(-0.5, -0.5)*33.,	// bottom left
+		vec2f( 0.5, -0.5)*33.,	 // bottom right
+	);
+
+	return posisi(
+		vec4f(pos[vertexIndex], 0.0, 1.0),
+		pos[vertexIndex],
+	);
+}
+@group(0) @binding(0) var<storage,read_write> buf:array<f32>;
+/*
+@fragment fn fs() -> @location(0) vec4f {
+	buf[0] += 0.1;
+	buf[0] %= 1.0;
+	return vec4f(buf[0], buf[0], buf[0],  1);
+}
+*/
+@fragment fn nosignal(
+	darivertex : posisi,
+) -> @location(0) vec4f {
+	buf[0] += 0.1;
+	buf[0] %= 1.0;
+	return vec4f(vec3f(buf[0]),1.,);
+}
+@fragment fn abst(
+	darivertex : posisi,
+) -> @location(0) vec4f {
+	let p = darivertex.frag;
+	let t = buf[1];
+	
+	
+	return vec4f(
+		.0,
+		vec2f(.4,.7,)
+		*abs(
+			sin(
+				distance(
+					p,
+					vec2f(.0),
+				)
+				*-22.
+				+t*3.5,
+			)
+		)
+		+p
+		*tan(t+p.x+.3*p.y*sin(t*.6)*3.),
+		1,
+	);}
+
+@fragment fn roket(
+	darivertex : posisi,
+) -> @location(0) vec4f {
+	let p = darivertex.frag;
+	let t = buf[1];
+	
+	
+	
+	return vec4f(
+		siro	(p	,(t+.9	)%3.1201	,vec2f(-.6	,-1.	,)	,.7,)
+		+siro	(p	,(t+4.	)%4.573	,vec2f(-.6	,-1	,)	,.5,)
+		+siro	(p	,(t+1.8	)%4.666661	,vec2f(-.6	,-1	,)	,.8,)
+		+siro	(p	,(t+2.	)%3.4	,vec2f(-.6	,-1	,)	,.9,)
+		+siro	(p	,(t+.57	)%7.	,vec2f(-.6	,-1	,)	,.4,),
+		.2,
+	1.,);
+}
+fn siro(//sinar roket
+	p:vec2f,
+	t:f32,
+	pa:vec2f,//pos awal
+	sudut:f32,//sudut
+) -> vec2f{
+	return vec2f(
+		1.
+		-min(
+			distance(
+				pa
+				+vec2f(
+					sin(sudut),
+					cos(sudut),
+				)
+				*pow(
+					t
+					*.7,
+					2.,
+				),//sampe sini, bikin dome
+				p,
+			)
+			*(
+				8.
+				+(
+					tan(sin(t)*33.)
+					*22.
+				)
+				%1.
+			),
+			1.,
+		)
+	);
+}
+
+@fragment fn dome(
+	darivertex : posisi,
+) -> @location(0) vec4f {
+	let p = darivertex.frag;
+	let t = buf[1];
+	
+	return vec4f(
+		duar	(p,(t	+2.	)%4.99	,vec2f(.4	,.8	,))
+		+duar	(p,(t	+4.	)%7.	,vec2f(-.1	,.6	,))
+		+duar	(p,(t	+1.2	)%11.6	,vec2f(-.2	,.5	,))
+		+duar	(p,(t	+1.3	)%11.4	,vec2f(.3	,.7	,))
+		+duar	(p,(t	+4.2	)%10.11	,vec2f(.0	,.2	,))
+		+duar	(p,(t	+3.	)%12.31	,vec2f(.3	,-.13	,))
+		+duar	(p,(t	+4.1	)%6.12	,vec2f(-.6	,.7	,)),
+		.0,
+		1.,
+	);
+}
+fn duar(
+	p:vec2f,
+	t:f32,
+	pa:vec2f,
+) -> vec2f {
+	return vec2f(
+		1.
+		-min(
+			distance(
+				pa,
+				p,
+			)
+			*2.4
+			+atan(
+				5.
+				*t
+			)
+			*.66,
+			1.,
+		)
+	);
+}
+
+@fragment fn m87(
+	darivertex : posisi,
+) -> @location(0) vec4f {
+	let p = darivertex.frag;
+	let t = buf[1];
+	
+	return vec4f(
+		vec3f(1., .8, .6,)
+		*(
+			1.
+			-atan(
+				distance(
+					vec2f(-.6 , .5,),
+					p,
+				)
+			)*.9
+		)
+		+vec3f(
+			vec3f(.0,.0,2.*(sin(t*.8)*.7+1.),)*
+			atan(
+				-pow(
+					p.x
+					+p.y,
+					2.,
+				)
+				*99.
+				-p.y
+				*.4
+				+.1
+			)
+			*2.,
+		),
+		1.,
+	);
+}
+
+
+
+
+
