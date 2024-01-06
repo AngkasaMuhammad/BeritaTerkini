@@ -1,0 +1,59 @@
+<!--h00000-->
+<!DOCTYPE	html>
+<html>
+	<head>
+		<title>
+			WebGPU - Berita Terkini
+		</title>
+		<style>
+			body{
+				background-color:#001122;
+				color:white;
+				font-family:Verdana;
+			}
+			canvas{
+				border:2px solid cyan;
+				image-rendering: pixelated;
+			}
+			
+			.flexh{
+				display:flex;
+			}
+			
+			#info{
+				padding-top:33px;
+				color:cyan;
+			}
+			#berita{
+				flex:auto;
+				padding-left:11px;
+				color:#00ff00;
+			}
+			#berita > ul > li:hover{
+				outline:2px solid pink;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<h2>Berita Terkini</h2>
+		<div class="flexh">
+			<canvas width="500" height="500"></canvas>
+			<div id="berita">
+				<h4>Channel</h4>
+				<ul>
+					<li frag="nosignal"	>__nosignal__	</li>
+					<li frag="abst"	>24 Jam Abstract	</li>
+					<li frag="roket"	>Roket Pejuang kembali diluncurkan	</li>
+					<li frag="dome"	>Roket Anti Udara kembali menangkis roket pejuang	</li>
+					<li frag="m87"	>WOWEduTV - Messier 87	</li>
+				</ul>
+			</div>
+		</div>
+		<div id="info">
+			Web ini hanya berisi gambar yang terbentuk dari komputasi shader source code shaderku.txt<br/>
+			Tidak ada suara
+		</div>
+		<script src="js/WebGPU - Berita Terkini.js"></script>
+	</body>
+</html>
